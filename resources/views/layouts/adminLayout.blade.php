@@ -101,11 +101,11 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a><i class="fa fa-newspaper-o"></i> مدیریت اخبار<span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-newspaper-o"></i> مدیریت دستاوردها<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu" style="display: none">
-                                    <li><a href="{{url('systemManager')}}"> نمایش و مدیریت اخبار</a>
+                                    <li><a href="{{url('systemManager')}}"> نمایش و مدیریت دستاوردها</a>
                                     </li>
-                                    <li><a href="{{url('systemManager')}}">درج اخبار جدید </a>
+                                    <li><a href="{{url('systemManager')}}">درج دستاوردها جدید </a>
                                     </li>
                                 </ul>
                             </li>

@@ -13,7 +13,7 @@ class Project extends Model
     ];
     public function ProjectType()
     {
-        return $this->belongsTo('App\Model\ProjectType');
+        return $this->belongsTo('App\Models\ProjectType');
     }
     public function ProjectImage()
     {

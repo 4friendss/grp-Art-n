@@ -188,29 +188,29 @@
 
                             <section class="autoplay1">
                                 @foreach($projects_products as $pr)
-                                    @foreach($pr->ProjectImage as $val)
+                                    {{--@foreach($pr->ProjectImage[0] as $val)--}}
                                         <div>
                                             <a href="{{url('projectDetail/' . $pr->id)}}"
                                                title="{{$pr->title}}" alt="{{$pr->title}}">
-                                                <img src="{{url('public/dashboard/upload_files/projects/'.$val->src)}}"
+                                                <img src="{{url('public/dashboard/upload_files/projects/'.$pr->ProjectImage[0]->src)}}"
                                                      class="img-res img-width-100 img-width-200">
                                             </a>
                                         </div>
-                                    @endforeach
+                                    {{--@endforeach--}}
                                 @endforeach
                             </section>
                             <h2 style="margin-top: 0">نمونه کارهای آرتان</h2>
                             <section class="autoplay2">
                                 @foreach($projects_works as $pr)
-                                    @foreach($pr->ProjectImage as $val)
+                                    {{--@foreach($pr->ProjectImage as $val)--}}
                                         <div>
                                             <a href="{{url('projectDetail/' . $pr->id)}}" title="{{$pr->title}}"
                                                alt="{{$pr->title}}">
-                                                <img src="{{url('public/dashboard/upload_files/projects/'.$val->src)}}"
+                                                <img src="{{url('public/dashboard/upload_files/projects/'.$pr->ProjectImage[0]->src)}}"
                                                      class="img-res img-width-100 img-width-200">
                                             </a>
                                         </div>
-                                    @endforeach
+                                    {{--@endforeach--}}
                                 @endforeach
                             </section>
                         </div>

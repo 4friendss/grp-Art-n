@@ -35,7 +35,10 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::get('/projectCreate', 'ProjectController@projectCreate');
     Route::post('/projectCreatePost', 'ProjectController@projectCreatePost');
     Route::get('/projectManagement', 'ProjectController@projectManagement');
-    Route::post('/projectManagement', 'ProjectController@projectManagementPost');
+    Route::get('/projectDetails/{id}', 'ProjectController@projectDetails');
+    Route::post('/updateProject', 'ProjectController@updateProject');
+    Route::get('deleteProjectPicture/{id}', 'ProductController@deleteProjectPicture');//use in updating project (project details blade)
+
 
     Route::get('/categoryProjectCreate', 'UserController@categoryProjectCreate');
     Route::post('/categoryProjectCreate', 'UserController@categoryProjectCreatePost');

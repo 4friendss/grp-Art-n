@@ -30,27 +30,24 @@
                         <input type="hidden" id="token" value="{{ csrf_token() }}">
                         <thead>
                         <tr>
-                            <th style="text-align: center">شناسه محصول</th>
-                            <th style="text-align: center">عنوان محصول</th>
-                            <th style="text-align: center">تعدا بازدید</th>
-                            <th style="text-align: center">تعداد خرید</th>
-                            <th style="text-align: center">تاریخ ثبت محصول</th>
+                            <th style="text-align: center">شناسه پروژه</th>
+                            <th style="text-align: center">عنوان پروژه</th>
+                            <th style="text-align: center">نوع پروژه</th>
+                            {{--<th style="text-align: center">تعداد خرید</th>--}}
+                            {{--<th style="text-align: center">تاریخ ثبت پروژه</th>--}}
                             <th style="text-align: center">مشاهده جزییات</th>
                             <th style="text-align: center">وضعیت / تغییر وضعیت</th>
-
                         </tr>
                         </thead>
-
                         <tbody>
-
                         @foreach($data as $datum)
                             <tr class="unit">
                                 <td style="font-size: 120%">{{$datum->id}}</td>
                                 <td style="font-size: 120%">{{$datum->title}}</td>
-                                <td style="font-size: 120%">{{$datum->seen_count}}</td>
-                                <td style="font-size: 120%">{{$datum->sell_count}}</td>
-                                <td style="font-size: 120%">{{$datum->date}}</td>
-                                <td ><strong><a style="font-size: 120%" class="btn btn-dark" href="{{url('admin/productDetails/'.$datum->id)}}">مشاهده جزئیات</a></strong></td>
+                                <td style="font-size: 120%">{{$datum->ProjectType->title}}</td>
+                                {{--<td style="font-size: 120%">{{$datum->sell_count}}</td>--}}
+{{--                                <td style="font-size: 120%">{{$datum->date}}</td>--}}
+                                <td ><strong><a style="font-size: 120%" class="btn btn-dark" href="{{url('admin/projectDetails/'.$datum->id)}}">مشاهده جزئیات</a></strong></td>
                                 @if($datum->active == 1)
                                     <td ><strong><a style="font-size: 120%" class="btn btn-success col-md-10 col-md-offset-1" id="{{$datum->id}}">فعال</a></strong></td>
                                 @endif
@@ -73,7 +70,7 @@
                 var button = $(this);
                 swal({
                         title: "",
-                        text: "محصول مورد نظر شما هم اکنون فعال است ، آیا در نظر دارید آن را غیر فعال کنید؟",
+                        text: "پروژه مورد نظر شما هم اکنون فعال است ، آیا در نظر دارید آن را غیر فعال کنید؟",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "	#5cb85c",
@@ -135,7 +132,7 @@
                 var button = $(this);
                 swal({
                         title: "",
-                        text: "محصول مورد نظر شما هم اکنون غیر فعال است ، آیا در نظر دارید آن را فعال کنید؟",
+                        text: "پروژه مورد نظر شما هم اکنون غیر فعال است ، آیا در نظر دارید آن را فعال کنید؟",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "	#5cb85c",
