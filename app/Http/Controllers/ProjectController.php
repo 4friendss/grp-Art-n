@@ -25,8 +25,6 @@ class ProjectController extends Controller
         $project = Project::where('id', $id)->get();
         $projectTitle = 'همه ی محصولات';
         $projects = Project::all();
-//        dd($projects[0]->productImage->src);
-//        dd($project->projectImage->src);
         return view('projectDetail', compact('projects', 'project', 'projectTitle', 'user'));
     }
     public function projectManagement()
@@ -71,7 +69,7 @@ class ProjectController extends Controller
         $pageTitle = 'ویرایش پروژه';
         $products = Project::where([['id', $id], ['active', 1]])->get();
         if (count($products) > 0) {
-            return view('admin.productDetails', compact('products', 'pageTitle'));
+            return view('admin.projectDetails', compact('products', 'pageTitle'));
         } else {
             return view('errors.403');
         }
@@ -86,7 +84,21 @@ class ProjectController extends Controller
         $res=unlink(public_path().$srcImage);
         $res1 = ProjectImage::destroy($id);
         if ($res1 == 1 && $res == 1)
-            return response()->json(true);
+            return response()->json(['message'=>'success']);
+    }
+    //delete project video from '/dashboard/upload_files/projects/video' and from project.video_src field
+    // call this me by ajax from projectDetails for updating and change projects video
+    public function deleteVideo($id)
+    {
+        $video = Project::where('id', '=', $id)->value('video_src');
+        $srcImage = '/dashboard/upload_files/projects/video/' . $video;
+        $res=unlink(public_path().$srcImage);
+        $update = Project::find($id);
+        $update->video_src = null;
+        $res1=$update->save();
+
+        if ($res1 == 1 && $res == 1)
+            return response()->json(['message'=>'success']);
     }
     //update Project to database
     public function updateProject(Request $request)

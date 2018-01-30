@@ -46,7 +46,6 @@ class AddProject
             for ($i = 0; $i < $countPic; $i++) {
                 $ProjectPicture = new ProjectImage();
                 $ProjectPicture->Project_id = $lastProjectId;
-                $ProjectPicture->title= $Project->title;;
                 $imageExtension = $Project->file[$i]->getClientOriginalExtension();
                 $imageName=microtime();
                 $ProjectPicture->src = $imageName.'.'.$imageExtension;

@@ -81,17 +81,17 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="item form-group {{ $errors->has('desc') ? ' has-error' : '' }}">
+                            <div class="item form-group {{ $errors->has('description') ? ' has-error' : '' }}">
                                 <div class="col-md-8 col-sm-6 col-xs-9">
-                                    <input id="desc" class="form-control col-md-7 col-xs-12" name="desc"
+                                    <input id="description" class="form-control col-md-7 col-xs-12" name="description"
                                            placeholder="" required="required" type="text">
                                 </div>
-                                <label class="control-label col-md-4 col-sm-4 col-xs-3" for="desc"> سمت/توضیحات :
+                                <label class="control-label col-md-4 col-sm-4 col-xs-3" for="description"> سمت/توضیحات :
                                     <span class="required star" title="پر کردن این فیلد الزامی است">*</span>
                                 </label>
-                                @if ($errors->has('desc'))
+                                @if ($errors->has('description'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('desc') }}</strong>
+                                        <strong>{{ $errors->first('description') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::post('/usersCreate', 'UserController@usersCreatePost');
     Route::get('/usersManagement', 'UserController@usersManagement');
     Route::post('/usersManagement', 'UserController@usersManagementPost');
+    Route::post('/changeUserStatus/{id}', 'UserController@changeUserStatus');
 
     Route::get('/newsCreate', 'UserController@newsCreate');
     Route::post('/newsCreate', 'UserController@newsCreatePost');
@@ -37,7 +38,8 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::get('/projectManagement', 'ProjectController@projectManagement');
     Route::get('/projectDetails/{id}', 'ProjectController@projectDetails');
     Route::post('/updateProject', 'ProjectController@updateProject');
-    Route::get('deleteProjectPicture/{id}', 'ProductController@deleteProjectPicture');//use in updating project (project details blade)
+    Route::get('deleteProjectPicture/{id}', 'ProjectController@deleteProjectPicture');//use in updating project (project details blade)
+    Route::post('deleteVideo/{id}', 'ProjectController@deleteVideo');//use in updating project (project details blade)
 
 
     Route::get('/categoryProjectCreate', 'UserController@categoryProjectCreate');

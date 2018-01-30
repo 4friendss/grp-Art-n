@@ -49,10 +49,10 @@
                                 <td><a href="{{url('public/dashboard/upload_files/team/'.$val->src)}}"> <img width="60" src="{{url('public/dashboard/upload_files/team/'.$val->src)}}"> </a></td>
                                 <td><a href="{{url('public/dashboard/upload_files/team_resume/'.$val->resume_src)}}">رزومه</a></td>
                                 <td>
-                                    @if($val->active === 0)
-                                        <button  id="{{$val->id}}" value="{{$val->active}}" class="btn btn-danger">غیرفعال</button>
+                                    @if(!$val->active)
+                                        <button  id="{{$val->id}}" value="{{$val->active}}" class="btn btn-danger myDeActive">غیرفعال</button>
                                     @else
-                                        <button  id="{{$val->id}}" value="{{$val->active}}" class="btn btn-success">فعال</button>
+                                        <button  id="{{$val->id}}" value="{{$val->active}}" class="btn btn-success myActive">فعال</button>
                                     @endif
                                 </td>
                                 <td id="{{$val->id}}">
@@ -70,9 +70,8 @@
     {{--edit user's status by user-id --}}
 
     <script>
-        $(document).on('click','.btn-success',function () {
+        $(document).on('click','.myActive',function () {
             var userId = $(this).attr('id');
-            var status = $(this).val();
             var token  = $('#token').val();
             var button = $(this);
             swal({
@@ -89,7 +88,7 @@
                 function () {
                     $.ajax
                     ({
-                        url     : "{{Url('admin/changeUserStatus')}}/{{1}}",
+                        url     : "{{Url('admin/changeUserStatus/1')}}",
                         type    : 'post',
                         data    : {'userId':userId,'_token':token},
                         context :  button,
@@ -97,7 +96,7 @@
                         success : function (response)
                         {
                             $(button).text('غیر فعال');
-                            $(button).toggleClass('btn-success btn-danger');
+                            $(button).toggleClass('myActive myDeActive btn-success btn-danger');
                             swal({
                                 title: "",
                                 text: response,
@@ -121,9 +120,8 @@
         })
     </script>
         <script>
-            $(document).on('click','.btn-danger',function () {
+            $(document).on('click','.myDeActive',function () {
                 var userId = $(this).attr('id');
-                var status = $(this).val();
                 var token = $('#token').val();
                 var button = $(this);
                 swal({
@@ -140,14 +138,14 @@
                     function () {
                         $.ajax
                         ({
-                            url: "{{Url('admin/changeUserStatus')}}/{{2}}",
+                            url: "{{Url('admin/changeUserStatus/2')}}",
                             type: 'post',
                             data: {'userId': userId, '_token': token},
                             context: button,
                             //dataType:'json',
                             success: function (response) {
                                 $(button).text('فعال');
-                                $(button).toggleClass('btn-success btn-danger');
+                                $(button).toggleClass('btn-success btn-danger myActive myDeActive');
                                 swal({
                                     title: "",
                                     text: response,

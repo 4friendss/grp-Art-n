@@ -17,10 +17,10 @@ class UserController extends Controller
     public function usersManagement()
     {
         $pageTitle = 'مدیریت کارمندان';
-        $data=User::where('active',1)->get();
+        $data=User::all();
         return view('admin.usersManagement', compact('pageTitle','data'));
     }
-    public function usersActive(Request $request , $id)
+    public function changeUserStatus(Request $request , $id)
     {
         $userId = $request->userId;
         switch ($id)
@@ -52,7 +52,7 @@ class UserController extends Controller
                 'title' => 'required|max:100',
                 'name' => 'required|max:255',
                 'family' => 'required|max:255',
-                'desc' => 'required|max:500',
+                'description' => 'required|max:500',
                 'email' => 'required|max:255|unique:users',
                 'password' => 'required|min:6|confirmed',
                 'pic' => 'required|image',
@@ -64,7 +64,7 @@ class UserController extends Controller
                 'title.max' => 'حداکثر 255 کاراکتر مجاز است',
                 'name.required' => ' فیلد نام الزامی است',
                 'name.max' => 'حداکثر 255 کاراکتر مجاز است',
-                'desc.required' => ' فیلد سمت/توضیحات الزامی است ',
+                'description.required' => ' فیلد سمت/توضیحات الزامی است ',
                 'family.required' => ' فیلد نام خانوادگی الزامی است ',
                 'family.max' => 'حداکثر 255 کاراکتر مجاز است',
                 'email.required' => ' فیلد ایمیل الزامی است',
@@ -78,17 +78,20 @@ class UserController extends Controller
             ]);
         $user = new User();
         $pictureName=$request->email.substr($request->pic->getClientOriginalName(),-4);
-        $resumeName=$request->email.substr($request->resume->getClientOriginalName(),-4);
-        $request->pic->move('public/dashboard/upload_files',$pictureName);;
-        $request->resume->move('public/dashboard/upload_files',$resumeName);
+        if(!empty($request->resume))
+        {
+            $resumeName=$request->email.substr($request->resume->getClientOriginalName(),-4);
+            $request->resume->move('public/dashboard/upload_files/team_resume',$resumeName);
+            $user->resume_src = $resumeName;
+        }
+        $request->pic->move('public/dashboard/upload_files/team',$pictureName);;
         $user->title = $request->title;
         $user->name = $request->name;
         $user->family = $request->family;
-        $user->desc = $request->desc;
+        $user->description = $request->description;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->picture =$pictureName;
-        $user->resume_src = $resumeName;
+        $user->src =$pictureName;
         $user->active = '1';
         $res = $user->save();
         if($res==true)

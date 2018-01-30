@@ -264,26 +264,33 @@
                                     <div class="grandparent" id="grandparent">
                                         <div class="col-md-10 margin-bot-1 parent">
                                             <div class="col-md-2 col-md-offset-3">
-                                                <a type="button" name="editVideo" id="editVideo"
-                                                   class="glyphicon glyphicon-edit btn btn-success edit" content="{{$products[0]->id}}"
-                                                   title="ویرایش "></a>
-                                                <a type="button"  id="playVideo"
-                                                   class="glyphicon glyphicon-play btn btn-success" content="{{$products[0]->id}}"
-                                                   title="پخش ویدئو "></a>
-                                                <a type="button"  id="pauseVideo"
-                                                   class="glyphicon glyphicon-pause btn btn-success edit" content="{{$products[0]->id}}"
-                                                   title="توقف پخش ویدئو " style="display: none;"></a>
 
+                                                <a type="button" name="editVideo" @if($products[0]->video_src != null)id="editVideo"@endif
+                                                   class="glyphicon glyphicon-edit btn btn-success edit"
+                                                   content="{{$products[0]->id}}"
+                                                   title="ویرایش "></a>
+                                                @if($products[0]->video_src != null)
+                                                    <a type="button" id="playVideo"
+                                                       class="glyphicon glyphicon-play btn btn-success"
+                                                       content="{{$products[0]->id}}"
+                                                       title="پخش ویدئو "></a>
+                                                    <a type="button" id="pauseVideo"
+                                                       class="glyphicon glyphicon-pause btn btn-success edit"
+                                                       content="{{$products[0]->id}}"
+                                                       title="توقف پخش ویدئو " style="display: none;"></a>
+                                                @endif
                                             </div>
                                             <div class="col-md-5 col-sm-6 col-xs-9 " id="videoContent">
                                                 @if($products[0]->video_src != null)
-                                                    <video   class="video" style="width: 200px; height: 200px;"
+                                                    <video class="video" style="width: 200px; height: 200px;"
                                                            id="video" name="video_src">
-                                                        <source id="playingVideo" src="{{url('public/dashboard/productFiles/video')}}/{{$products[0]->video_src}}">
+                                                        <source id="playingVideo"
+                                                                src="{{url('public/dashboard/upload_files/projects/video')}}/{{$products[0]->video_src}}">
                                                     </video>
                                                     <input
-                                                           class="form-control col-md-7 col-xs-12 editable"
-                                                           id="newVideo" src="" name="video_src" type="file" style="display: none;">
+                                                            class="form-control col-md-7 col-xs-12 editable"
+                                                            id="newVideo" src="" name="video_src" type="file"
+                                                            style="display: none;">
                                                 @endif
                                                 @if($products[0]->video_src == null)
                                                     <input disabled="disabled"
@@ -345,7 +352,9 @@
                                     text: x,
                                     type: "info",
                                 })
-                                location.reload();
+                                setTimeout(function () {
+                                    location.reload();
+                                },3000)
                             },
                             error: function (xhr) {
                                 console.log(xhr)
@@ -460,47 +469,6 @@
                         var DOM = $(this).parentsUntil('#grandparent');
                         var editable = $(DOM).find('#editable');
                         $(editable).prop('disabled', false);
-                        if (editable.attr('name') == 'unit_count') {
-                            $("#unit_count_parent").empty();
-                            $("#unit_count_parent").append(
-                                '<select id="editable"' +
-                                'class="form-control col-md-7 col-xs-12 editable my_units" name="unit_count" value="{{$products[0]->unit_count}}">' +
-                                '<option value="{{$products[0]->unit_count}}">{{$products[0]->unit_count}}</option></select>');
-                            loadUnits();
-                        }
-                        else if (editable.attr('name') == 'sub_unit_count') {
-                            $("#sub_unit_count_parent").empty();
-                            $("#sub_unit_count_parent").append(
-                                '<select id="editable"' +
-                                'class="form-control col-md-7 col-xs-12 editable" name="sub_unit_count" value="{{$products[0]->sub_unit_count}}">' +
-                                '<option selected value="{{$products[0]->sub_unit_count}}">{{$products[0]->sub_unit_count}}</option></select>');
-                            $.ajax
-                            ({
-                                cache: false,
-                                url: "{{Url('api/v1/getSubunitsBySubUnitTitle')}}",
-                                dataType: "json",
-                                type: "post",
-                                data: {'title': "{{$products[0]->sub_unit_count}}"},
-                                success: function (response) {
-                                    var responses = response;
-                                    var selectBoxId = "[name='sub_unit_count']";
-                                    var msgOpt1 = "لطفا زیر واحد شمارش مورد نظر خود را انتخاب نمایید";
-                                    var msgOpt2 = "اگر زیر واحد شمارش مورد نظر در این لیست وجود ندارد این گزینه انتخاب نمایید";
-                                    var valueOption2 = 0;
-                                    loadItems(responses, selectBoxId, msgOpt1, msgOpt2, valueOption2)
-                                }
-                            });
-                        }
-                        else if (editable.attr('name') == 'activePrice') {
-                            $(".currentPrice1").remove();
-                            $(".currentPrice2").show();
-                        }
-                        else if (editable.attr('name') == 'colors') {
-                            appendItem("[name='colors']", "color", "{{url('api/v1/getColors')}}");
-                        }
-                        else if (editable.attr('name') == 'sizes') {
-                            appendItem("[name='sizes']", "size", "{{url('api/v1/getSizes')}}");
-                        }
                     })
                 })
             })
@@ -529,7 +497,7 @@
                                 if (isConfirm) {
                                     //load all subCategory in select box in addProductForm
                                     $.ajax({
-                                        url: "{{url('admin/deleteProductPicture')}}/"+imageId,
+                                        url: "{{url('admin/deleteProjectPicture')}}/" + imageId,
                                         type: 'get',
                                         dataType: "json",
                                         success: function (response) {
@@ -558,7 +526,6 @@
                 $('#myModal').modal('show');
             })
         </script>
-        <script src="{{ URL::asset('public/js/persianDatepicker.js')}}"></script>
         <script>
             //9-load item in select box
             function loadItems(responses, selectBoxId, msgOption1, msgOption2, valueOption2) {
@@ -598,79 +565,79 @@
                 var selectedText = $(this).find("option:selected").text();
                 $("#lastCategory").val(id);
                 $("#lastCategoryName").attr('name', selectedText)
+                $("#lastCategoryName").val(selectedText)
+                console.log(selectedText);
             })
         </script>
         <script>
-            $(document).on('click','#editVideo',function(){
-               // var DOM       = $(this).parentsUntil('#grandparent');
+            $(document).on('click', '#editVideo', function () {
                 var productId = $(this).attr('content');
-                var editable  = $('#videoContent');
-                var me        = $(this);
-                if(editable.children().length > 0)
-                {
+                var editable = $('#videoContent');
+                var me = $(this);
+                if (editable.children().length > 0) {
                     swal({
-                        title: '',
-                        text: 'قبل از ویرایش فیلم محصول ابتدا باید آن را حذف نمائید  ، آیا مایل به انجام این کار هستید؟',
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "  #5cb85c",
-                        cancelButtonText: "خیر",
-                        confirmButtonText: "آری",
-                        closeOnConfirm: true,
-                        closeOnCancel: true
-                    },
+                            title: '',
+                            text: 'قبل از ویرایش فیلم پروژه ابتدا باید آن را حذف نمائید  ، آیا مایل به انجام این کار هستید؟',
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "  #5cb85c",
+                            cancelButtonText: "خیر",
+                            confirmButtonText: "آری",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
                         function (isConfirm) {
                             if (isConfirm) {
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
                                 $.ajax
                                 ({
-                                    url      : "{{url('admin/deleteVideo')}}",
-                                    type     : "get",
-                                    dataType : "json",
-                                    data     : {'productId' : productId },
-                                    context  : {'me' : me},
-                                    success  : function(response)
-                                    {
-                                        if(response.message == 'success')
-                                        {
-                                           $('#video').css('display','none');
-                                           $('#newVideo').css('display','block');
-                                           $(me).attr('id','edit');
-                                           $(me).attr('name','edit');
-                                        }else
-                                            {
-                                                swal({
-                                                    title: '',
-                                                    text: 'خطایی رخ داده است ، با بخش پشتیبانی تماس بگیرید',
-                                                    type: "warning",
-                                                })
-                                            }
-                                    },error  : function(error)
-                                    {
+                                    url: "{{url('admin/deleteVideo')}}/" + productId,
+                                    type: "post",
+                                    dataType: "json",
+                                    context: {'me': me},
+                                    success: function (response) {
+                                        if (response.message == 'success') {
+                                            $('#video').css('display', 'none');
+                                            $('#pauseVideo').css('display', 'none');
+                                            $('#playVideo').css('display', 'none');
+                                            $('#newVideo').css('display', 'block');
+                                            $(me).attr('id', 'edit');
+                                            $(me).attr('name', 'edit');
+                                        } else {
+                                            swal({
+                                                title: '',
+                                                text: 'خطایی رخ داده است ، با بخش پشتیبانی تماس بگیرید',
+                                                type: "warning",
+                                            })
+                                        }
+                                    }, error: function (error) {
                                         console.log(error);
                                     }
                                 })
                             }
                         }
-                );
-                }else
-                    {
+                    );
+                } else {
 
-                    }
+                }
             })
         </script>
         <script>
-            $(document).on('click','#playVideo',function(){
+            $(document).on('click', '#playVideo', function () {
 
                 var video = document.getElementById('video');
-                if(video != null)
-                {
+                if (video != null) {
                     video.play();
                     $(this).hide();
                     $('#pauseVideo').show();
                 }
 
             })
-            $(document).on('click','#pauseVideo',function(){
+            $(document).on('click', '#pauseVideo', function () {
                 $(this).hide();
                 $('#playVideo').show();
                 var video = document.getElementById('video');
