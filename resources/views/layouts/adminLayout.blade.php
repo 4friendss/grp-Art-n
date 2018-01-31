@@ -111,17 +111,9 @@
                             </li>
                             <li><a><i class="fa fa-window-restore"></i> مدیریت کارآموزی<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu" style="display: none">
-                                    <li><a href="{{url('systemManager')}}"> نمایش و مدیریت فرم های کارآموزی</a>
+                                    <li><a href="{{url('admin/internshipImageManagement')}}"> نمایش و مدیریت فرم های کارآموزی</a>
                                     </li>
-                                    <li><a href="{{url('systemManager')}}">درج تصویر کارآموزی جدید </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-th-list"></i> مدیریت دسته بندی پروژه<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu" style="display: none">
-                                    <li><a href="{{url('systemManager')}}"> نمایش و مدیریت دسته بندی های پروژه</a>
-                                    </li>
-                                    <li><a href="{{url('systemManager')}}">درج دسته بندی جدید </a>
+                                    <li><a href="{{url('admin/addInternshipImage')}}">درج تصویر کارآموزی جدید </a>
                                     </li>
                                 </ul>
                             </li>

@@ -27,10 +27,10 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::post('/usersManagement', 'UserController@usersManagementPost');
     Route::post('/changeUserStatus/{id}', 'UserController@changeUserStatus');
 
-    Route::get('/newsCreate', 'UserController@newsCreate');
-    Route::post('/newsCreate', 'UserController@newsCreatePost');
-    Route::get('/newsManagement', 'UserController@newsManagement');
-    Route::post('/newsManagement', 'UserController@newsManagementPost');
+    Route::get('/achievementCreate', 'UserController@achievementCreate');
+    Route::post('/achievementCreatePost', 'UserController@achievementCreatePost');
+    Route::get('/achievementManagement', 'UserController@achievementManagement');
+    Route::post('/achievementManagement', 'UserController@achievementManagementPost');
 
     Route::get('/projectType', 'ProjectController@projectType');
     Route::get('/projectCreate', 'ProjectController@projectCreate');
@@ -42,15 +42,15 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::post('deleteVideo/{id}', 'ProjectController@deleteVideo');//use in updating project (project details blade)
 
 
-    Route::get('/categoryProjectCreate', 'UserController@categoryProjectCreate');
-    Route::post('/categoryProjectCreate', 'UserController@categoryProjectCreatePost');
-    Route::get('/categoryProjectManagement', 'UserController@categoryProjectManagement');
-    Route::post('/categoryProjectManagement', 'UserController@categoryProjectManagementPost');
+    Route::get('/addInternshipImage', 'InternshipController@addInternshipImage');
+    Route::post('/addInternshipImagePost', 'InternshipController@addInternshipImagePost');
+    Route::get('/internshipImageManagement', 'InternshipController@internshipImageManagement');
+    Route::get('editInternship/{id}','InternshipController@editInternship');
+    Route::post('editInternshipPicture', 'InternshipController@editInternshipPicture');//this route is related to edit sliders picture
+    Route::post('editInternshipTitle', 'InternshipController@editInternshipTitle');//this route is related ti edit sliders title
+    Route::post('enableOrDisableInternship', 'InternshipController@enableOrDisableInternship');//this route is related to make sliders enable or disable
 
-    Route::get('/internshipCreate', 'UserController@internshipCreate');
-    Route::post('/internshipCreate', 'InternshipController@internshipCreatePost');
-    Route::get('/internshipManagement', 'UserController@internshipManagement');
-    Route::post('/internshipManagement', 'InternshipController@internshipManagementPost');
+
     Route::get('/internshipFormsManagement', 'UserController@internshipFormsManagement');
     Route::post('/internshipFormsManagement', 'InternshipController@internshipFormsManagementPost');
 });

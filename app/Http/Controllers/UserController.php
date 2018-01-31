@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\SelfClasses\AddNewInternshipImage;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -97,4 +98,5 @@ class UserController extends Controller
         if($res==true)
         return response()->json('کارمند جدید با موفقیت ثبت شد');
     }
+
 }
